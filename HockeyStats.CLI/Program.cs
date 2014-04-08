@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Owin.Diagnostics;
+using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
+using Microsoft.Owin.StaticFiles;
 using Owin;
 
 namespace HockeyStats.CLI
@@ -17,7 +19,7 @@ namespace HockeyStats.CLI
 
             using (WebApp.Start<Startup>(uri))
             {
-                Console.WriteLine("Started");
+                Console.WriteLine("Started; listening on: {0}", uri);
                 Console.ReadKey();
                 Console.WriteLine("Stopping");
             }
@@ -28,6 +30,10 @@ namespace HockeyStats.CLI
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseFileServer(new FileServerOptions
+            {
+                FileSystem = new PhysicalFileSystem(".\\www"),
+            });
             app.UseWelcomePage();
         }
     }
