@@ -1,0 +1,42 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+    var namespace_name = "HockeyStats.CLI";
+    var extension_class_name = "FluentOwinMiddlewareExtensions";
+
+    var middleware = new Dictionary<string,string> {
+        { "WelcomePage", "Microsoft.Owin.Diagnostics" },
+        { "FileServer", "Microsoft.Owin.StaticFiles" }
+    };
+
+    var usings = middleware.Values.SelectMany(x => x.Split(';')).Distinct().OrderBy(x => x);
+#>
+using System;
+<# foreach (var u in usings) { #>
+using <#=u#>;
+<# } #>
+using Owin;
+
+namespace <#=namespace_name#>
+{
+    public static class <#=extension_class_name#>
+    {
+<#
+    foreach (var m in middleware.Keys) {
+#>
+        public static void Use<#=m#>(this IAppBuilder app, Action<<#=m#>Options> configure)
+        {
+            var options = new <#=m#>Options();
+            configure(options);
+            app.Use<#=m#>(options);
+        }
+
+<#
+    }
+#>
+    }
+}

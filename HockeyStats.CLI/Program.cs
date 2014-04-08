@@ -30,11 +30,21 @@ namespace HockeyStats.CLI
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseFileServer(new FileServerOptions
-            {
-                FileSystem = new PhysicalFileSystem(".\\www"),
-            });
+            ConfigureStaticFiles(app);
+
             app.UseWelcomePage();
+        }
+
+        private static void ConfigureStaticFiles(IAppBuilder app)
+        {
+            app.UseFileServer(o =>
+            {
+                o.FileSystem = new PhysicalFileSystem(".\\www");
+                o.EnableDefaultFiles = true;
+#if DEBUG
+                o.EnableDirectoryBrowsing = true;
+#endif
+            });
         }
     }
 }
