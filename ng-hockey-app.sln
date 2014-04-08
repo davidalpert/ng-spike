@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30324.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeyStats.WebFrontEnd", "HockeyStats.WebFrontEnd\HockeyStats.WebFrontEnd.csproj", "{FC8792AC-483C-42F4-AA01-44A523B8FE2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockyStats.CLI", "HockyStats.CLI\HockyStats.CLI.csproj", "{0F8C798B-1524-4CB4-B270-89429D62C25E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FC8792AC-483C-42F4-AA01-44A523B8FE2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC8792AC-483C-42F4-AA01-44A523B8FE2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC8792AC-483C-42F4-AA01-44A523B8FE2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F8C798B-1524-4CB4-B270-89429D62C25E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F8C798B-1524-4CB4-B270-89429D62C25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F8C798B-1524-4CB4-B270-89429D62C25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F8C798B-1524-4CB4-B270-89429D62C25E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
