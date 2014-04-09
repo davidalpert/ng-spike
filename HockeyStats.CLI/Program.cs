@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Http;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
 using Owin;
@@ -24,12 +25,29 @@ namespace HockeyStats.CLI
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseFileServer(o =>
-            {
-                o.FileSystem = new PhysicalFileSystem(".\\www");
-            });
+            ConfigureStaticFiles(app);
+
+            ConfigureWebAPI(app);
 
             app.UseWelcomePage();
+        }
+
+        private static void ConfigureStaticFiles(IAppBuilder app)
+        {
+            app.UseFileServer(o => { o.FileSystem = new PhysicalFileSystem(".\\www"); });
+        }
+
+        private static void ConfigureWebAPI(IAppBuilder app)
+        {
+            var config = new HttpConfiguration();
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate:"api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+                );
+
+            app.UseWebApi(config);
         }
     }
 }
