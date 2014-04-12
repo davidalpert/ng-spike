@@ -1,0 +1,16 @@
+﻿<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Away</th>
+            <th>Home</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="game in games">
+            <td>{{ game.DatePlayed }}</td>
+            <td>{{ game.AwayTeam }}</td>
+            <td>{{ game.HomeTeam }}</td>
+        </tr>
+    </tbody>
+</table>
