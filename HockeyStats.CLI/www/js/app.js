@@ -1,32 +1,32 @@
-﻿
-var app = angular.module('app', ['ngRoute'])
+﻿var app = angular.module('app', ['ngRoute'])
     .config(function ($routeProvider, $locationProvider) {
-        console.log($routeProvider);
-        
         $routeProvider.when('/', {
             templateUrl: 'js/views/games.html',
             controller: 'gamesController',
         });
-
-        //$routeProvider.otherwise({ redirectTo: '/' });
+        
+        $routeProvider.otherwise({ redirectTo: '/' });
 
         //$locationProvider.html5Mode(true);
-        console.log('finished.');
     });
 
+// date formatting courtesy of: http://blog.stevenlevithan.com/archives/date-time-format
 app.controller('gamesController', function ($scope, $http) { //, $route, $routeParams, $location, $http) {
     $http.get('/api/games').
-        success(function (data, status) {
+        success(function(data, status) {
+            //console.log('status: ' + status);
             $scope.status = status;
             $scope.games = data;
-            console.log('status: ' + status);
+            angular.forEach($scope.games, function (g, i) {
+                g.DatePlayed = new Date(g.DatePlayed).format('mediumDate');
+            });
         }).
         error(function(data, status, headers, config) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
+            //console.log('status: ' + status);
             $scope.status = status;
             $scope.errorMessage = data.Message;
             $scope.errorDetail = data.MessageDetail;
-            console.log('status: ' + status);
     });
 });
