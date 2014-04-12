@@ -26,7 +26,7 @@ namespace HockeyStats.CLI.Api
             }
         }
 
-        public static IEnumerable<HockeyGame> GetGames()
+        public static IEnumerable<HockeyGameSummaryLineItem> GetGames()
         {
             //var x = _xml.CreateNavigator().Select("/sports-content/sports-event/event-//metadata/@start-date-time");
             var events =
@@ -43,24 +43,29 @@ namespace HockeyStats.CLI.Api
                 var month = Int32.Parse(datePlayed.Substring(4, 2));
                 var date = Int32.Parse(datePlayed.Substring(6, 2));
 
-                return new HockeyGame
+                var homeTeam = GetTeam(e, "home");
+                var awayTeam = GetTeam(e, "away");
+
+                return new HockeyGameSummaryLineItem
                 {
                     DatePlayed = new DateTime(year, month, date),
-                    HomeTeam = GetTeam(e, "home"),
-                    AwayTeam = GetTeam(e, "away")
+                    HomeTeam = homeTeam.Name,
+                    HomeTeamAbbreviation = homeTeam.Abbreviation,
+                    AwayTeam = awayTeam.Name,
+                    AwayTeamAbbreviation = awayTeam.Abbreviation,
                 };
             });
 
             return games;
         }
 
-        private static HockeyGame.Team GetTeam(XElement e, string alignment)
+        private static HockeyGameSummaryLineItem.Team GetTeam(XElement e, string alignment)
         {
             var team = e.Elements("team").First(t => t.Element("team-metadata").Attribute("alignment").Value == alignment);
             var name = team.Element("team-metadata").Element("name");
             var teamName = name.Attribute("full").Value;
             var abbreviation = name.Attribute("abbreviation").Value;
-            return new HockeyGame.Team
+            return new HockeyGameSummaryLineItem.Team
             {
                 Name = teamName,
                 Abbreviation = abbreviation
@@ -68,11 +73,13 @@ namespace HockeyStats.CLI.Api
         }
     }
 
-    public class HockeyGame
+    public class HockeyGameSummaryLineItem
     {
         public DateTime DatePlayed { get; set; }
-        public Team AwayTeam { get; set; }
-        public Team HomeTeam { get; set; }
+        public string AwayTeam { get; set; }
+        public string HomeTeam { get; set; }
+        public string AwayTeamAbbreviation { get; set; }
+        public string HomeTeamAbbreviation { get; set; }
 
         public class Team
         {
