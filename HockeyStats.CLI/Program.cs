@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web.Http;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.Hosting;
@@ -10,13 +11,21 @@ namespace HockeyStats.CLI
     {
         static void Main(string[] args)
         {
-            string uri = "http://localhost:8080/";
+            var uri = new Uri("http://localhost:8080/");
 
-            using (WebApp.Start<Startup>(uri))
+            Console.WriteLine("Configuring Katana...");
+            Console.WriteLine();
+            using (WebApp.Start<Startup>(uri.ToString()))
             {
-                Console.WriteLine("Started; listening on: {0}", uri);
+                Console.WriteLine();
+                Console.WriteLine("Starting up.");
+                Console.WriteLine();
+                Console.WriteLine("Katana listening on: {0}", uri);
+                Console.WriteLine();
+                Console.WriteLine("Press Ctrl-C to quit.");
                 Console.ReadKey();
-                Console.WriteLine("Stopping");
+                Console.WriteLine();
+                Console.WriteLine("Shutting down.");
             }
         }
     }
@@ -34,7 +43,13 @@ namespace HockeyStats.CLI
 
         private static void ConfigureStaticFiles(IAppBuilder app)
         {
-            app.UseFileServer(o => { o.FileSystem = new PhysicalFileSystem(".\\www"); });
+#if DEBUG
+            var wwwDir = new DirectoryInfo(@"..\..\www");
+#else
+            var wwwDir = new DirectoryInto(@".\www");
+#endif
+            Console.WriteLine("Serving files from: {0}", wwwDir.FullName);
+            app.UseFileServer(o => { o.FileSystem = new PhysicalFileSystem(wwwDir.FullName); });
         }
 
         private static void ConfigureWebAPI(IAppBuilder app)
