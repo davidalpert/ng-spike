@@ -49,10 +49,8 @@ namespace HockeyStats.CLI.Api
                 return new HockeyGameSummaryLineItem
                 {
                     DatePlayed = new DateTime(year, month, date),
-                    HomeTeam = homeTeam.Name,
-                    HomeTeamAbbreviation = homeTeam.Abbreviation,
-                    AwayTeam = awayTeam.Name,
-                    AwayTeamAbbreviation = awayTeam.Abbreviation,
+                    HomeTeam = homeTeam,
+                    AwayTeam = awayTeam,
                 };
             });
 
@@ -61,12 +59,16 @@ namespace HockeyStats.CLI.Api
 
         private static HockeyGameSummaryLineItem.Team GetTeam(XElement e, string alignment)
         {
+            const string keyRoot = "l.nhl.com-t.";
             var team = e.Elements("team").First(t => t.Element("team-metadata").Attribute("alignment").Value == alignment);
-            var name = team.Element("team-metadata").Element("name");
+            var metadata = team.Element("team-metadata");
+            var id = metadata.Attribute("team-key").Value.Replace(keyRoot, "");
+            var name = metadata.Element("name");
             var teamName = name.Attribute("full").Value;
             var abbreviation = name.Attribute("abbreviation").Value;
             return new HockeyGameSummaryLineItem.Team
             {
+                Id = Convert.ToInt32(id),
                 Name = teamName,
                 Abbreviation = abbreviation
             };
@@ -76,13 +78,14 @@ namespace HockeyStats.CLI.Api
     public class HockeyGameSummaryLineItem
     {
         public DateTime DatePlayed { get; set; }
-        public string AwayTeam { get; set; }
-        public string HomeTeam { get; set; }
+        public Team AwayTeam { get; set; }
+        public Team HomeTeam { get; set; }
         public string AwayTeamAbbreviation { get; set; }
         public string HomeTeamAbbreviation { get; set; }
 
         public class Team
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Abbreviation { get; set; }
         }

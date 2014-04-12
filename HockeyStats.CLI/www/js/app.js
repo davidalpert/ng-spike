@@ -4,6 +4,10 @@
             when('/about', {
                 templateUrl: 'js/views/about.html',
             }).
+            when('/teams/:id', {
+                templateUrl: 'js/views/teamsDetail.html',
+                controller: 'teamsDetailController',
+            }).
             when('/', {
                 templateUrl: 'js/views/games.html',
                 controller: 'gamesController',
@@ -18,6 +22,10 @@ app.controller('navController', function ($scope, $location) {
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
     };
+});
+
+app.controller('teamsDetailController', function ($scope, $routeParams) {
+    $scope.Id = $routeParams.id;
 });
 
 // date formatting courtesy of: http://blog.stevenlevithan.com/archives/date-time-format

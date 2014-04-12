@@ -14,8 +14,8 @@
     <tbody>
         <tr ng-repeat="game in games">
             <td>{{ game.DatePlayed }}</td>
-            <td>{{ game.AwayTeam }}</td>
-            <td>{{ game.HomeTeam }}</td>
+            <td><a href="#/teams/{{ game.AwayTeam.Id }}">{{ game.AwayTeam.Name }}</a></td>
+            <td><a href="#/teams/{{ game.HomeTeam.Id }}">{{ game.HomeTeam.Name }}</a></td>
         </tr>
     </tbody>
 </table>

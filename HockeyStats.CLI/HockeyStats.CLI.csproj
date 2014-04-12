@@ -113,6 +113,7 @@
     <Content Include="www\js\date.format.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="www\js\views\teamsDetail.html" />
     <Content Include="www\js\views\games.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
