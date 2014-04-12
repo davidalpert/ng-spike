@@ -15,16 +15,18 @@ var app = angular.module('app', ['ngRoute'])
     });
 
 app.controller('gamesController', function ($scope, $http) { //, $route, $routeParams, $location, $http) {
-    console.log('gamesController');
     $http.get('/api/games').
-        success(function(data) {
-            alert(data);
+        success(function (data, status) {
+            $scope.status = status;
             $scope.games = data;
-            $scope.status = 200;
+            console.log('status: ' + status);
         }).
         error(function(data, status, headers, config) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
-        $scope.status = status;
+            $scope.status = status;
+            $scope.errorMessage = data.Message;
+            $scope.errorDetail = data.MessageDetail;
+            console.log('status: ' + status);
     });
 });

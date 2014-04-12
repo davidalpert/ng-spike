@@ -1,4 +1,9 @@
-﻿<table>
+﻿<h4>Games</h4>
+<div ng-hide="status == 200">
+    <p><strong>{{status}}</strong> {{ errorMessage }}</p>
+    <p>{{ errorDetail }}</p>
+</div>
+<table ng-show="status == 200">
     <thead>
         <tr>
             <th>Date</th>
