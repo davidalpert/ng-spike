@@ -1,14 +1,24 @@
 ﻿var app = angular.module('app', ['ngRoute'])
     .config(function ($routeProvider, $locationProvider) {
-        $routeProvider.when('/', {
-            templateUrl: 'js/views/games.html',
-            controller: 'gamesController',
-        });
+        $routeProvider.
+            when('/about', {
+                templateUrl: 'js/views/about.html',
+            }).
+            when('/', {
+                templateUrl: 'js/views/games.html',
+                controller: 'gamesController',
+            });
         
         $routeProvider.otherwise({ redirectTo: '/' });
 
         //$locationProvider.html5Mode(true);
     });
+
+app.controller('navController', function ($scope, $location) {
+    $scope.isActive = function (viewLocation) {
+        return viewLocation === $location.path();
+    };
+});
 
 // date formatting courtesy of: http://blog.stevenlevithan.com/archives/date-time-format
 app.controller('gamesController', function ($scope, $http) { //, $route, $routeParams, $location, $http) {
