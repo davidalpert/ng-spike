@@ -83,7 +83,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\GamesController.cs" />
+    <Compile Include="Api\Controllers\TeamsController.cs" />
+    <Compile Include="Api\Model\TeamHeader.cs" />
+    <Compile Include="DomainServices\DataRepo.cs" />
+    <Compile Include="Api\Controllers\GamesController.cs" />
+    <Compile Include="Api\Model\HockeyGameSummaryLineItem.cs" />
+    <Compile Include="Api\Model\Team.cs" />
     <Compile Include="Extensions\AppBuilderExtensions.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -92,6 +97,7 @@
     <Compile Include="Helpers\ManifestResourceHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

@@ -1,4 +1,19 @@
-﻿<h1>Team {{ Id }}</h1>
-<ul>
-    <li>Details coming soon...</li>
-</ul>
+﻿<h1>{{ team.Name }}</h1>
+<table class="table">
+    <thead>
+        <th>#</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Position</th>
+        <th>Decoration</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="player in team.Players" >
+            <td>{{ player.Number }}</td>
+            <td>{{ player.FirstName[0] + player.FirstName.substring(1).toLowerCase() }}</td>
+            <td>{{ player.LastName[0] + player.FirstName.substring(1).toLowerCase() }}</td>
+            <td>{{ player.Position }}</td>
+            <td>{{ player.Decoration }}</td>
+        </tr>
+    </tbody>
+</table>

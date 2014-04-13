@@ -24,8 +24,21 @@ app.controller('navController', function ($scope, $location) {
     };
 });
 
-app.controller('teamsDetailController', function ($scope, $routeParams) {
-    $scope.Id = $routeParams.id;
+app.controller('teamsDetailController', function ($scope, $http, $routeParams) {
+    $http.get('/api/teams/' + $routeParams.id).
+        success(function(data, status) {
+            //console.log('status: ' + status);
+            $scope.status = status;
+            $scope.team = data;
+        }).
+        error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            //console.log('status: ' + status);
+            $scope.status = status;
+            $scope.errorMessage = data.Message;
+            $scope.errorDetail = data.MessageDetail;
+    });
 });
 
 // date formatting courtesy of: http://blog.stevenlevithan.com/archives/date-time-format

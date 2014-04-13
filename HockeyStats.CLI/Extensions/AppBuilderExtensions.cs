@@ -3,7 +3,7 @@ using Microsoft.Owin.Diagnostics;
 using Microsoft.Owin.StaticFiles;
 using Owin;
 
-namespace HockeyStats.CLI
+namespace HockeyStats.CLI.Extensions
 {
     public static class FluentOwinMiddlewareExtensions
     {
@@ -20,6 +20,5 @@ namespace HockeyStats.CLI
             configure(options);
             app.UseFileServer(options);
         }
-
     }
 }
