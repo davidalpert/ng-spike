@@ -1,0 +1,23 @@
+﻿<h1>{{ game.AwayTeam.Franchise }} @ {{ game.HomeTeam.Franchise }}</h1>
+
+<p> {{ game.Date }} </p>
+
+<table class="table">
+    <thead>
+        <th>Final</th>
+        <th ng-repeat="period in game.Periods">{{ period.Name }}</th>
+        <th>Total</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ game.AwayTeam.Abbreviation }}</td>
+            <td ng-repeat="period in game.Periods">{{ period.GoalsAway }}</td>
+            <td>{{ game.AwayGoals }}</td>
+        </tr>
+        <tr>
+            <td>{{ game.HomeTeam.Abbreviation }}</td>
+            <td ng-repeat="period in game.Periods">{{ period.GoalsHome }}</td>
+            <td>{{ game.HomeGoals }}</td>
+        </tr>
+    </tbody>
+</table>

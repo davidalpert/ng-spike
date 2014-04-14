@@ -8,6 +8,10 @@
                 templateUrl: 'js/views/teamsDetail.html',
                 controller: 'teamsDetailController',
             }).
+            when('/games/:id', {
+                templateUrl: 'js/views/gamesDetail.html',
+                controller: 'gamesDetailController',
+            }).
             when('/', {
                 templateUrl: 'js/views/games.html',
                 controller: 'gamesController',
@@ -30,6 +34,23 @@ app.controller('teamsDetailController', function ($scope, $http, $routeParams) {
             //console.log('status: ' + status);
             $scope.status = status;
             $scope.team = data;
+        }).
+        error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            //console.log('status: ' + status);
+            $scope.status = status;
+            $scope.errorMessage = data.Message;
+            $scope.errorDetail = data.MessageDetail;
+    });
+});
+
+app.controller('gamesDetailController', function ($scope, $http, $routeParams) {
+    $http.get('/api/games/' + $routeParams.id).
+        success(function (data, status) {
+            //console.log('status: ' + status);
+            $scope.status = status;
+            $scope.game = data;
         }).
         error(function(data, status, headers, config) {
             // called asynchronously if an error occurs
